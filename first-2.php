@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<style>
+
+
+
+*, *:before, *:after {
+
+  box-sizing: border-box;
+
+}
+
+
+
+html {
+
+  overflow-y: scroll;
+
+}
+
+
+
+body {
+
+  background: #fff5e6;
+
+  font-family: 'Titillium Web', sans-serif;
+
+}
+
+
+
+a {
+
+  text-decoration: none;
+
+  color: #1ab188;
+
+  -webkit-transition: .5s ease;
+
+  transition: .5s ease;
+
+}
+
+a:hover {
+
+  color: #ff6680;
+
+}
+
+
+
+.form {
+
+  background: #ffffff;
+
+  padding: 40px;
+
+  max-width: 600px;
+
+  margin: 40px auto;
+
+  border-radius: 4px;
+
+  box-shadow: 0 4px 10px 4px <!--rgb(255, 255, 240)-->;
+
+}
+
+
+
+.tab-group {
+
+  list-style: none;
+
+  padding: 0;
+
+  margin: 0 0 40px 0;
+
+}
+
+.tab-group:after {
+
+  content: "";
+
+  display: table;
+
+  clear: both;
+
+}
+
+.tab-group li a {
+
+  display: block;
+
+  text-decoration: none;
+
+  padding: 15px;
+
+  background: #ffcccc;
+
+  color: #a0b3b0;
+
+  font-size: 20px;
+
+  float: left;
+
+  width: 50%;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  -webkit-transition: .5s ease;
+
+  transition: .5s ease;
+
+}
+
+.tab-group li a:hover {
+
+  background: #ff4d4d;
+
+  color: black;
+
+}
+
+.tab-group .active a {
+
+  background: #F7786B;
+
+  color: black;
+
+}
+
+
+
+.tab-content > div:last-child {
+
+  display: none;
+
+}
+
+
+
+h1 {
+
+  text-align: center;
+
+  color: black;
+
+  font-weight: 300;
+
+  margin: 0 0 40px;
+
+}
+
+
+
+label {
+
+  position: absolute;
+
+  -webkit-transform: translateY(6px);
+
+          transform: translateY(6px);
+
+  left: 13px;
+
+  color: black;
+
+  -webkit-transition: all 0.25s ease;
+
+  transition: all 0.25s ease;
+
+  -webkit-backface-visibility: hidden;
+
+  pointer-events: none;
+
+  font-size: 22px;
+
+}
+
+label .req {
+
+  margin: 2px;
+
+  color: #1ab188;
+
+}
+
+
+
+label.active {
+
+  -webkit-transform: translateY(50px);
+
+          transform: translateY(50px);
+
+  left: 2px;
+
+  font-size: 14px;
+
+}
+
+label.active .req {
+
+  opacity: 0;
+
+}
+
+
+
+label.highlight {
+
+  color: black;
+
+}
+
+
+
+input, textarea {
+
+  font-size: 22px;
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  padding: 5px 10px;
+
+  background: none;
+
+  background-image: none;
+
+  border: 1px solid #a0b3b0;
+
+  color: black;
+
+  border-radius: 0;
+
+  -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+
+  transition: border-color .25s ease, box-shadow .25s ease;
+
+}
+
+input:focus, textarea:focus {
+
+  outline: 0;
+
+  border-color: #1ab188;
+
+}
+
+
+
+textarea {
+
+  border: 2px solid #a0b3b0;
+
+  resize: vertical;
+
+}
+
+
+
+.field-wrap {
+
+  position: relative;
+
+  margin-bottom: 40px;
+
+}
+
+
+
+.top-row:after {
+
+  content: "";
+
+  display: table;
+
+  clear: both;
+
+}
+
+.top-row > div {
+
+  float: left;
+
+  width: 48%;
+
+  margin-right: 4%;
+
+}
+
+.top-row > div:last-child {
+
+  margin: 0;
+
+}
+
+
+
+.button {
+
+  border: 0;
+
+  outline: none;
+
+  border-radius: 0;
+
+  padding: 15px 0;
+
+  font-size: 2rem;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: .1em;
+
+  background: #F7786B;
+
+  color: #ffffff;
+
+  -webkit-transition: all 0.5s ease;
+
+  transition: all 0.5s ease;
+
+  -webkit-appearance: none;
+
+}
+
+.button:hover, .button:focus {
+
+  background: #fff5e6;
+
+}
+
+
+
+.button-block {
+
+  display: block;
+
+  width: 100%;
+
+}
+
+
+
+.forgot {
+
+  margin-top: -20px;
+
+  text-align: right;
+
+}
+
+
+
+ul {
+
+    list-style-type: none;
+
+    margin: 0;
+
+    padding: 7px;
+
+    overflow: hidden;
+
+    background-color:#fff5e6;
+
+}
+
+
+
+li {
+
+    float: right;
+
+}
+
+
+
+li a {
+
+    display: block;
+
+    color: black;
+
+    text-align: center;
+
+    padding: 14px 16px;
+
+    text-decoration: none;
+
+}
+
+
+
+li a:hover {
+
+    background-color:#fff5e6;
+
+}
+
+
+
+</style>
+
+
+
+
+
+<body>
+
+
+
+<ul>
+
+<li><a href="first-2.php">Sign in</a></li>
+
+
+
+<li><a href="shop.php">Shop</a></li>
+
+
+
+ <li><a href="fhome.php">Home</a></li>
+
+
+
+</ul>
+
+
+
+<?php
+
+
+
+ $servername = "localhost";
+
+$username = "root";
+
+$password = "Palacios23";
+
+$dbname = "it202";
+
+// Create connection
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+
+
+// Check connection
+
+if ($conn->connect_error) {
+
+    die("Connection failed: " . $conn->connect_error);
+
+} 
+
+
+
+$email = $_POST["email"];
+
+$pwd = $_POST["pwd"];
+
+
+
+
+
+$sql= "select password from Users where email = '$email'";
+
+$result = $conn->query($sql);
+
+$row = $result->fetch_assoc();
+
+$out = $row["password"];
+
+
+
+echo $err;
+
+
+
+
+
+if($pwd != $out){
+
+    //$err = "Invalid data";
+
+    echo "invalid";
+
+}
+
+
+
+
+
+?>
+
+
+
+<div class="form">
+
+      
+
+      
+
+      <div class="tab-content">
+
+
+
+	     <div id="login"> 
+
+  
+
+          <h1>Glamur</h1>
+
+          
+
+          <form action="first-2.php" method="post">
+
+          
+
+
+
+            
+
+              Email Address:<br>
+
+           
+
+            <input type="email" name="email"/>
+
+          </div>
+
+          
+
+          <div class="field-wrap">
+
+            
+
+             <br><br> Password:<br>
+
+
+
+            <input type="password" name="pwd"/>
+
+          </div>
+
+
+
+          
+
+          
+
+	  <p class="forgot"><a href="#">forgot password? </a></p>
+
+          
+
+          <button class="button button-block"/>Log In</button>
+
+          
+
+          </form>
+
+<p align="center" class="create"><a href="first-2.1.php">Create a new account </a></p>
+
+
+
+
+
+        </div>
+
+        
+
+        
+
+   
+
+</div> <!-- /form -->
+
+
+
+</body>
+
+</html>
