@@ -54,6 +54,12 @@ li a:hover {
 
 }
 
+div.rate {
+    background-color: #e5eecc;
+    padding: 7px;
+    border: solid 1px #c3c3c3;
+}
+
 
 </style>
 
@@ -88,7 +94,7 @@ li a:hover {
 
   Price:
   <input type="number" name="price"
-   min="0" max="100" value="0">
+   min="0" max="100" value="0" step = "20">
 
 
 
@@ -107,6 +113,23 @@ li a:hover {
 <input type = "submit" value= "search">
 
 </form>
+
+
+<div class="rate" hidden>
+<form action="shop.php">
+  Rate Product (between 1 and 5):
+  <input type="number" name="quantity" min="1" max="5">
+  <input type="submit">
+</form>
+</div>
+
+<script src="shop.php"></script>
+<script>
+
+</script>
+
+
+
 <?php
 
 $servername = "localhost";
@@ -118,6 +141,7 @@ $tags = $_POST["tags"];
 $price = $_POST["price"];
 $size = $_POST["Size"];
 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -125,30 +149,62 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 if ($tags == "select" && $price == "0" && $size == "-") {
-
 $sql = "select * from Products";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
 	 
 echo "<br> <img src= '" . $row["url"] . "'><br>";
+
+
 }}}
+
+if ($tags == "Shoes") {
+$sql ="select * from  Products where tag like 'heels'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
+	 
+echo "<br> <img src= '" . $row["url"] . "'><br>";
+
+}
+} else {
+    echo "0 results";
+}
+$conn->close();
+}
+if ($tags == "Necklace Accesories") {
+$sql ="select * from  Products where tag like 'accessories'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
+	 
+echo "<br> <img src= '" . $row["url"] . "'><br>";
+
+}
+} else {
+    echo "0 results";
+}
+$conn->close();
+}
 if ($tags == "Dresses") {
-
-$sql ="select * from  Products where tag='dress'";
+$sql ="select * from  Products where tag like 'dress'";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
-	 
+
 echo "<br> <img src= '" . $row["url"] . "'><br>";
+rateProduct();
+
 }
 } else {
     echo "0 results";
@@ -157,26 +213,52 @@ $conn->close();
 }
 
 
-
-if ($tags == "accesories") {
-
-$sql ="select * from  Products where tag='accessories'";
+if ($price != 0) {
+$sql ="select * from  Products where price <= $price";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
-	 
+
 echo "<br> <img src= '" . $row["url"] . "'><br>";
+rateProduct();
+
 }
 } else {
     echo "0 results";
 }
 $conn->close();
 }
+
+if ($size != "-") {
+$sql ="select * from  Products where size = '$size' ";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . " size " . " " . $row["size"] . "" .   $row["url"] .  "<br>";
+
+echo "<br> <img src= '" . $row["url"] . "'><br>";
+
+
+}
+} else {
+    echo "0 results";
+}
+$conn->close();
+}
+
+// rate products unable to make it work 
+function rateProduct() {
+ '<div class="rate"><form action="shop.php">Rate Product (between 1 and 5) <input type="number" name="rnum" min="1" max="5"><input type="submit"></form></div>'; 
+
+$rnum = $_POST["rnum"];
+
+$sqlquery = "insert into ratings values(productID, 'customer',$rnum)";
+$conn->query($sqlquery);
+
+}
+
 
 ?>
-
-</body>
-</html>
