@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 
 <html>
+<head>
 
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-
+</head>
 <style>
 
 
@@ -422,7 +428,7 @@ li a:hover {
 
 <body>
 
-
+<div class = "hidden-xs hidden-sm">
 
 <ul>
 
@@ -440,6 +446,22 @@ li a:hover {
 
 </ul>
 
+</div>
+
+<div class = "hidden-md hidden-lg">
+
+<ul>
+
+<li><a href="first-2.php">Sign in</a></li>
+
+
+ <li><a href="shop.php">Shop</a></li>
+
+
+
+</ul>
+
+</div>
 
 
 <?php
@@ -486,10 +508,21 @@ $row = $result->fetch_assoc();
 
 $out = $row["password"];
 
+//$email = $row['email'];
+
 
 
 echo $err;
 
+if($pwd = $out){
+
+ 
+
+    echo "Valid";
+    header('Location:fhome.php');
+    
+
+}
 
 
 
@@ -498,15 +531,25 @@ if($pwd != $out){
 
     //$err = "Invalid data";
 
-    echo "invalid";
+    echo "Invalid input";
 
 }
 
-
-
-
-
 ?>
+
+<script>
+function validateForm() {
+    var x = document.forms["login"]["email"].value;
+    var y = document.forms["login"]["pwd"].value;
+    if (x == null || x == " ") {
+        alert("email must be filled out");
+	}
+    if ( y == null || y == ""){
+	alert("password must be filled out");
+        return false;
+    }
+}
+</script>
 
 
 
@@ -528,7 +571,7 @@ if($pwd != $out){
 
           
 
-          <form action="first-2.php" method="post">
+          <form name="login" action="first-2.php" onsubmit="return validateForm()" method="post">
 
           
 
@@ -540,7 +583,7 @@ if($pwd != $out){
 
            
 
-            <input type="email" name="email"/>
+            <input type="email" name="email">
 
           </div>
 
@@ -554,7 +597,7 @@ if($pwd != $out){
 
 
 
-            <input type="password" name="pwd"/>
+            <input type="password" name="pwd">
 
           </div>
 
@@ -567,8 +610,8 @@ if($pwd != $out){
 	  <p class="forgot"><a href="#">forgot password? </a></p>
 
           
-
-          <button class="button button-block"/>Log In</button>
+         
+           <button type="submit" class="button button-block value="Submit"/>Log In</button>
 
           
 

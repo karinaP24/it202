@@ -36,12 +36,21 @@ li a {
 
 li a:hover {
     background-color:#fff5e6;
+
+h2 {
+    font: 400 100px/1.3 'Berkshire Swash', Helvetica, sans-serif;
+    color:#2b2b2b;
+    text-shadow: 1px 1px 0px #ededed, 4px 4px 0px rgba(0,0,0,0.15);
+
+}
 }
 
 
 </style>
 </head>
 <body>
+
+<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' type='text.css'>
 
 <ul>
 
@@ -52,7 +61,13 @@ li a:hover {
  <li><a href="fhome.php">Home</a></li>
 </ul>
 
+<div class="Logo"
 
+<h2> Glamur </h2>
+
+<p> You are beautiful! </p>
+
+</div>
 
 
 </body>

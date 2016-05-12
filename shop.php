@@ -2,6 +2,12 @@
 <html>
 
 <head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <style>
 
 body {
@@ -61,6 +67,8 @@ div.rate {
 }
 
 
+
+
 </style>
 
 </head>
@@ -85,19 +93,20 @@ div.rate {
 
 <form action="shop.php" method ="post">
   <select name="tags">
-
+  
+    Type:
     <option value="select">Select</option>	
     <option value="Dresses">Dresses</option>
     <option value="Shoes">Heels</option>
     <option value="Necklace Accesories">accesories</option>
 </select>
 
-  Price:
+  Under Price:
   <input type="number" name="price"
    min="0" max="100" value="0" step = "20">
 
 
-
+  Size:
   <select name="Size">
     <option value="-">---</option>
     <option value="6">6</option>   
@@ -110,20 +119,18 @@ div.rate {
 
 
   </select> 
-<input type = "submit" value= "search">
-
-</form>
+<input type = "submit" value= "search"><br />
 
 
-<div class="rate" hidden>
-<form action="shop.php">
-  Rate Product (between 1 and 5):
-  <input type="number" name="quantity" min="1" max="5">
-  <input type="submit">
-</form>
+
+
 </div>
 
-<script src="shop.php"></script>
+<script>
+function mydemo() {
+    document.getElementById("demo").style.color = "red";
+}
+</script>
 <script>
 
 </script>
@@ -154,11 +161,17 @@ $sql = "select * from Products";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
+    
     while($row = $result->fetch_assoc()) {
-        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
-	 
-echo "<br> <img src= '" . $row["url"] . "'><br>";
+	echo "<br> <div id='top' class = 'abc container col-sm-3'> <a href= '#top'";
+	echo "<br> <img src= '" . $row["url"] . "' width = '150' heigth = '150'> </a>";
+        echo "<br>" . "ProductId: " . " " . $row["productId"] . "  ". " Stocks: " . $row["stocks"] . " <br> ". "Price: " . "$". $row["price"] . "  ". "Color: " . $row["color"];
 
+echo "</div>";
+	
+	 
+
+//rateProduct($row["productId"]);
 
 }}}
 
@@ -168,10 +181,11 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
-	 
-echo "<br> <img src= '" . $row["url"] . "'><br>";
+	echo "<div class = 'abc container col-sm-3'>";
+	echo "<br> <img src= '" . $row["url"] . "' width = '100' heigth = '100'>";
+        echo "<br>" . "ProductId: " . " " . $row["productId"] . "  ". " Stocks: " . $row["stocks"] . "  ". "Price: " . "$". $row["price"] . "  ". "Color: " . $row["color"];
 
+echo "</div>";
 }
 } else {
     echo "0 results";
@@ -184,10 +198,12 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
-	 
-echo "<br> <img src= '" . $row["url"] . "'><br>";
+        echo "<div class = 'abc container col-sm-3'>";
+	echo "<br> <img src= '" . $row["url"] . "' width = '100' heigth = '100'>";
+        echo "<br>" . "ProductId: " . " " . $row["productId"] . "  ". " Stocks: " . $row["stocks"] . "  ". "Price: " . "$". $row["price"] . "  ". "Color: " . $row["color"];
 
+echo "</div>";
+//rateProduct($row["productId"]);
 }
 } else {
     echo "0 results";
@@ -200,11 +216,12 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
+        echo "<div class = 'abc container col-sm-3'>";
+	echo "<br> <img src= '" . $row["url"] . "' width = '100' heigth = '100'>";
+        echo "<br>" . "ProductId: " . " " . $row["productId"] . "  ". " Stocks: " . $row["stocks"] . "  ". "Price: " . "$". $row["price"] . "  ". "Color: " . $row["color"];
 
-echo "<br> <img src= '" . $row["url"] . "'><br>";
-rateProduct();
-
+echo "</div>";
+//rateProduct($row["productId"]);
 }
 } else {
     echo "0 results";
@@ -214,16 +231,18 @@ $conn->close();
 
 
 if ($price != 0) {
-$sql ="select * from  Products where price <= $price";
+$sql ="select * from  Products where price <= $price order by price desc";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
+    echo " <br> Products under the price of $price <br>";
     while($row = $result->fetch_assoc()) {
-        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . $row["url"] .  "<br>";
+        echo "<div class = 'abc container col-sm-3'>";
+	echo "<br> <img src= '" . $row["url"] . "' width = '100' heigth = '100'>";
+        echo "<br>" . "ProductId: " . " " . $row["productId"] . "  ". " Stocks: " . $row["stocks"] . "  ". "Price: " . "$". $row["price"] . "  ". "Color: " . $row["color"];
 
-echo "<br> <img src= '" . $row["url"] . "'><br>";
-rateProduct();
-
+echo "</div>";
+//rateProduct($row["productId"]);
 }
 } else {
     echo "0 results";
@@ -236,12 +255,15 @@ $sql ="select * from  Products where size = '$size' ";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
+    echo " <br> Products with size $size <br>";
     while($row = $result->fetch_assoc()) {
-        echo "ProductId: " . $row["productId"] . " -stocks: " . $row["stocks"] . "price" . $row["price"] . "color" . $row["color"] . "" . " size " . " " . $row["size"] . "" .   $row["url"] .  "<br>";
+        echo "<div class = 'abc container col-sm-3'>";
+	echo "<br> <img src= '" . $row["url"] . "' width = '100' heigth = '100'>";
+        echo "<br>" . "ProductId: " . " " . $row["productId"] . "  ". " Stocks: " . $row["stocks"] . "  ". "Price: " . "$". $row["price"] . "  ". "Color: " . $row["color"]. "<br>" . "Size: " . $row["size"];
 
-echo "<br> <img src= '" . $row["url"] . "'><br>";
+echo "</div>";
 
-
+//rateProduct($row["productId"]);
 }
 } else {
     echo "0 results";
@@ -250,15 +272,24 @@ $conn->close();
 }
 
 // rate products unable to make it work 
-function rateProduct() {
- '<div class="rate"><form action="shop.php">Rate Product (between 1 and 5) <input type="number" name="rnum" min="1" max="5"><input type="submit"></form></div>'; 
+
+function rateProduct($productId) {
+echo ' <form name="login" action="shop.php" method="post"> Rate Product (between 1 and 5) <input type="number" name="rnum" min="1" max="5"> <input type="submit" value="Submit"> <br>'; 
+
 
 $rnum = $_POST["rnum"];
 
-$sqlquery = "insert into ratings values(productID, 'customer',$rnum)";
-$conn->query($sqlquery);
+echo $rnum; 
+$sqlquery = "insert into ratings values($productId, 'customer',$rnum)";
+//$conn->query($sqlquery);
 
 }
 
 
+
+
 ?>
+
+
+
+

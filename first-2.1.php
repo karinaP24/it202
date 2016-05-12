@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
+<head>
 
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
 <style>
 
 *, *:before, *:after {
@@ -217,18 +225,45 @@ li a:hover {
 
 <body>
 
+<div class = "hidden-xs hidden-sm">
+
 <ul>
-  <li><a href="first-2.php">Sign in</a></li>
+
+<li><a href="first-2.php">Sign in</a></li>
+
+
 
 <li><a href="shop.php">Shop</a></li>
 
+
+
  <li><a href="fhome.php">Home</a></li>
+
+
 
 </ul>
 
+</div>
+
+<div class = "hidden-md hidden-lg">
+
+<ul>
+
+<li><a href="first-2.php">Sign in</a></li>
+
+
+ <li><a href="shop.php">Shop</a></li>
+
+
+
+</ul>
+
+</div>
+
+
    <?php
    
-   $servername = "localhost";
+$servername = "localhost";
 $username = "root";
 $password = "Palacios23";
 $dbname = "it202";
@@ -269,7 +304,7 @@ if ($conn->connect_error) {
               
                 First Name:
               
-              <input type="text" name="fn">
+              <input type="text" name="fn" required>
             </div>
         
             <div class="field-wrap">
